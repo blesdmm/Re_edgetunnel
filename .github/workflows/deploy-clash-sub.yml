@@ -3,8 +3,6 @@ name: Deploy Clash Sub Worker
 on:
   push:
     branches: [ main, master ]
-    paths:
-      - 'workers/clash-sub/**'
   workflow_dispatch:
 
 jobs:
@@ -26,13 +24,13 @@ jobs:
 
       - name: Publish to Cloudflare Workers
         run: |
-          # 自动注入副 Worker 的核心变量
+          # 自动注入副 Worker 所需的三个核心密匙（读取当前目录下的 wrangler.toml）
           echo "edb05f6d-184b-483b-ada5-a30b26a4b6e3" | npx wrangler secret put CLOUDFLARE_UUID --config wrangler.toml
           echo "888" | npx wrangler secret put SECRET_TOKEN --config wrangler.toml
-          echo "666" | npx wrangler secret put PAGE_PASSWORD --config wrangler.local.toml
+          echo "666" | npx wrangler secret put PAGE_PASSWORD --config wrangler.toml
           
           # 执行部署
-          npx wrangler deploy --config wrangler.local.toml
+          npx wrangler deploy --config wrangler.toml
         working-directory: workers/clash-sub
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
