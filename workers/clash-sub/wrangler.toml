@@ -1,4 +1,4 @@
-name = "edgetunnel-clash-sub"
+name = "redt-clash-sub"
 main = "index.js"
 compatibility_date = "2026-08-09"
 
@@ -17,7 +17,7 @@ head_sampling_rate = 0.1
 [vars]
 # Replace this in your ignored wrangler.local.toml with the hostname of the
 # separately deployed tunnel Worker. Do not include https:// or a path.
-CLOUDFLARE_HOST = "edgetunnel.example.com"
+CLOUDFLARE_HOST = "redt.blesdmm.kdns.fr"
 
 # Keep [] for a subscription containing only this project's Cloudflare nodes.
 # If custom nodes contain credentials, remove this variable and store
