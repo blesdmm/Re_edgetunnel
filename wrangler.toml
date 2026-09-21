@@ -61,5 +61,5 @@ binding = "KV"
 id = "8e9f9de8106645b2b6db3549af1248ab"
 [Routes]
 routes = [
-  { pattern = "redt.blesdmm.kdns.fr", custom_domain = true }
+  { pattern = "redt.blesdmm.kdns.fr/*", zone_name = "blesdmm.kdns.fr" }
 ]
