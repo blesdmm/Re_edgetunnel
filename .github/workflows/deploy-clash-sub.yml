@@ -27,8 +27,8 @@ jobs:
       - name: Publish to Cloudflare Workers
         run: |
           # 自动注入副 Worker 的核心变量
-          echo "edb05f6d-184b-483b-ada5-a30b26a4b6e3" | npx wrangler secret put CLOUDFLARE_UUID --config wrangler.local.toml
-          echo "888" | npx wrangler secret put SECRET_TOKEN --config wrangler.local.toml
+          echo "edb05f6d-184b-483b-ada5-a30b26a4b6e3" | npx wrangler secret put CLOUDFLARE_UUID --config wrangler.toml
+          echo "888" | npx wrangler secret put SECRET_TOKEN --config wrangler.toml
           echo "666" | npx wrangler secret put PAGE_PASSWORD --config wrangler.local.toml
           
           # 执行部署
