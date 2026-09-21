@@ -1,0 +1,33 @@
+name: Deploy Clash Sub Worker
+
+on:
+  push:
+    branches: [ main, master ]
+    paths:
+      - 'workers/clash-sub/**'  # 只有当 clash-sub 目录下的文件有改动时才触发（如果你希望每次任意改动都触发，可以删掉这三行）
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    name: Deploy Clash Sub
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm ci
+        working-directory: workers/clash-sub  # 进入副 worker 目录安装依赖
+
+      - name: Publish to Cloudflare Workers
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CF_API_TOKEN }}
+          accountId: ${{ secrets.CF_ACCOUNT_ID }}
+          workingDirectory: workers/clash-sub  # 指定在副 worker 目录下执行部署
+          command: deploy                      # 执行部署命令
