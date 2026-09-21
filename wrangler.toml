@@ -59,7 +59,7 @@ head_sampling_rate = 0.1
 [[kv_namespaces]]
 binding = "KV"
 id = "8e9f9de8106645b2b6db3549af1248ab"
-
+[Routes]
 routes = [
   { pattern = "redt.blesdmm.kdns.fr", custom_domain = true }
 ]
