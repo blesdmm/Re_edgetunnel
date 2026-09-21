@@ -22,13 +22,17 @@ jobs:
         run: npm ci
 
       - name: Publish to Cloudflare Workers
-        run: npx wrangler deploy
+        run: |
+          # 自动将 GitHub 后台的各项变量注入到 Cloudflare 线上
+          echo "${{ secrets.ADMIN }}" | npx wrangler secret put ADMIN
+          echo "${{ secrets.UUID }}" | npx wrangler secret put UUID
+          echo "${{ secrets.PROXYIP }}" | npx wrangler secret put PROXYIP
+          echo "${{ secrets.ECH_DOH_URL }}" | npx wrangler secret put ECH_DOH_URL
+          echo "${{ secrets.KEY }}" | npx wrangler secret put KEY
+          
+          # 执行最终部署
+          npx wrangler deploy
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}
-          ADMIN: ${{ secrets.ADMIN }}
-          UUID: ${{ secrets.UUID }}
-          PROXYIP: ${{ secrets.PROXYIP }}
-          ECH_DOH_URL: ${{ secrets.ECH_DOH_URL }}
-          KEY: ${{ secrets.KEY }}
           
